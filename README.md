@@ -11,21 +11,21 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 --container_ext_ops <string> extra args to pass in like "--dns 8.8.8.8 --dns x.x.x.x".
 
---container_ip <IP> is the IP we try and assign to the container, default ${CONTAINER_IP}"
+--container_ip <IP> is the IP we try and assign to the container, default `172.17.0.1`
 
---container_login <login> is the login name of the system admin user, default ${LOGIN}"
+--container_login <login> is the login name of the system admin user, default `dev`
 
---container_tz <tz> is the container time zone, default ${CONTAINER_TZ}"
+--container_tz <tz> is the container time zone, default `America/Chicago`
 
---name <name> is prefix name applied to the all image, container and vm(mac only), default ${NAME}"
+--name <name> is name used for: image, container and vm (Mac only), default `dev`
 
---passwd <passwd> the backup password that will be used, default ${DEFAUL_PASSWD}"
+--passwd <passwd> the backup password that will be used, default `pcfzmbuh`
 
---ssh_host_port <port> the port on the host machine to map to the containers SSH port, default ${SSH_HOST_PORT}"
+--ssh_host_port <port> the port on the host machine to map to the containers SSH port, default 2223
 
---ssh_prvt_file <file> the file name that contains the SSH private key, default ${SSH_PRVT_FILE}"
+--ssh_prvt_file <file> the file name that contains the SSH private key, default ~/.ssh/id_rsa
 
---ssh_publ_file <file> the file name that contains the SSH public key, default ${SSH_PUBL_FILE}"
+--ssh_publ_file <file> the file name that contains the SSH public key, default ~/.ssh/id_rsa.pub
 
 ## X11 over SSH
 
