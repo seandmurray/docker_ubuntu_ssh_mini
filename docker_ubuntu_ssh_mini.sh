@@ -10,6 +10,7 @@ PASSWD='pcfzmbuh'
 SSH_HOST_PORT=2223
 SSH_PRVT_FILE="${HOME}/.ssh/id_rsa"
 SSH_PUBL_FILE="${SSH_PRVT_FILE}.pub"
+UBUNTU_VERSION='20.04'
 
 function help {
   echo 'Script to build a containtly running Ubuntu container with a SSH daemon running and an Admin user.'
@@ -19,7 +20,7 @@ function help {
   echo "--container_ip <IP> is the IP we try and assign to the container, default ${CONTAINER_IP}"
   echo "--container_login <login> is the login name of the system admin user, default ${LOGIN}"
   echo "--container_tz <tz> is the container time zone, default ${CONTAINER_TZ}"
-  echo "--name <name> is prefix name applied to the all image, container and vm(mac only), default ${NAME}"
+  echo "--name <name> is prefix name applied to the: image, container and vm(mac only), default ${NAME}"
   echo "--passwd <passwd> the backup password that will be used, default ${DEFAUL_PASSWD}"
   echo "--ssh_host_port <port> the port on the host machine to map to the containers SSH port, default ${SSH_HOST_PORT}"
   echo "--ssh_prvt_file <file> the file name that contains the SSH private key, default ${SSH_PRVT_FILE}"
@@ -89,8 +90,8 @@ fi
 
 # Interal values
 IP=${CONTAINER_IP}
-IMAGE="${NAME}_img"
-CONTAINER="${NAME}_container"
+IMAGE=${NAME}
+CONTAINER=${NAME}
 AUTH_KEY=`cat ${SSH_PUBL_FILE}`
 _UID=1000
 _GID=${_UID}
@@ -110,7 +111,7 @@ read
 ###########
 # The data that will be written into a temp Dockerfile
 DOCKER_TMPL=$(cat <<-EOF
-FROM ubuntu:19.04
+FROM ubuntu:${UBUNTU_VERSION}
 
 # Set up the time zone to avoid answering awkward interactive questions.
 ENV TZ='${CONTAINER_TZ}'
@@ -171,7 +172,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew cask install virtualbox || true
   brew install docker docker-machine || true
 
-  MAC_VM="${NAME}VM"
+  MAC_VM=${NAME}
   echo "If the VM ${MAC_VM} already exists, remove it"
   docker-machine kill ${MAC_VM} || true
   docker-machine rm ${MAC_VM} || true

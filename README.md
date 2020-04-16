@@ -1,4 +1,4 @@
-#  Docker container with ubuntu running, SSH daemon running, Admin user
+#  Ubuntu Linux docker container, SSH daemon running and an admin user.
 
 Script to make creating a container on both Linux and Mac a little simplier and quicker. Use container as development and/or testing environments.
 
@@ -29,18 +29,22 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 ## X11 over SSH
 
-The simplest way to display X11 apps on the host machine window, is to install firefox (or some other X11 app) in the container with apt-get.
+The simplest way to display X11 apps on the host machine window,
+is to install firefox (or some other X11 app) in the container with
+apt-get. Example:
+`sudo apt-get -y install firefox`
+
 Then connect to the container with the -Y or the -X flag. Example:
-ssh -Y -i /ssh/private.file <admin name>@container_ip -p container_port 
+`ssh -Y -i /ssh/private.file <admin_name>@container_ip -p container_port`
 
 ## Mac
 
-To run just a command line version on a MAC requires only *homebrew* https://brew.sh/
-Homebrew will install (if not already installed):
+To run just a command line version on a MAC requires *homebrew* https://brew.sh/
+Homebrew will install the following (if not already installed):
   * VirtualBox https://www.virtualbox.org/
   * docker-machine https://github.com/docker/machine
   * docker https://www.docker.com/
 
 If you want use X11 apps from inside the container to display on MAC you will also need:
   * XCode (install from the Apple store)
-  * Xquartz (install using "brew cask install xquartz")
+  * Xquartz (install using `brew cask install xquartz`)
