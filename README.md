@@ -19,7 +19,7 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 `--name <name>` is name used for: image, container and vm (Mac only), default `dev`
 
-`--passwd <passwd>` the backup password that will be used, default `pcfzmbuh`
+`--passwd <passwd>` the backup password that will be used, default `pcfzmbuh`. Login via SSH by password is turned off by default.
 
 `--ssh_host_port <port>` the port on the host machine to map to the containers SSH port, default `2223`
 
