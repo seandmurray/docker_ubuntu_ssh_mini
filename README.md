@@ -33,6 +33,7 @@ The simplest way to display X11 apps on the host machine window,
 is to install firefox (or some other X11 app) in the container with
 apt-get. Example:
 `sudo apt-get -y install firefox`
+Note, I chose firefox because it installs all the dependencies for eclipse, including SWT and open jdk 11.
 
 Then connect to the container with the -Y or the -X flag. Example:
 `ssh -Y -i /ssh/private.file <admin_name>@container_ip -p container_port`
