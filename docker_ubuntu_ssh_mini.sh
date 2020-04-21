@@ -172,20 +172,19 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew cask install virtualbox || true
   brew install docker docker-machine || true
 
-  MAC_VM=default
-  echo "If the VM ${MAC_VM} already exists, remove it"
-  docker-machine kill ${MAC_VM} || true
-  docker-machine rm ${MAC_VM} || true
+  echo "If the VM ${NAME} already exists, remove it"
+  docker-machine kill ${NAME} || true
+  docker-machine rm ${NAME} || true
 
-  echo "Build the VM ${MAC_VM}, if needed"
-  docker-machine create --driver virtualbox ${MAC_VM} || true
+  echo "Build the VM ${NAME}, if needed"
+  docker-machine create --driver virtualbox ${NAME} || true
 
-  echo "Start the VM ${MAC_VM}, if not already started"
-  docker-machine start ${MAC_VM} || true
+  echo "Start the VM ${NAME}, if not already started"
+  docker-machine start ${NAME} || true
   set -e
 
 	# Get the docker machine environmentals
-  eval "$(docker-machine env ${MAC_VM})"
+  eval "$(docker-machine env ${NAME})"
 	# The docker machine has it's own IP
   IP=$(echo $DOCKER_HOST|grep -E -o '([0-9]{1,3}[\.]){3}[0-9]{1,3}')
 fi
@@ -216,4 +215,17 @@ ${IMAGE}
 # Clean up the generated temp files.
 rm -fr ${TMP_DIR}
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo 'Mac require the user of docker-machine to start and stop the VM hosting the containers.'
+  echo 'To start the VM:'
+  echo "\tdocker-machine start ${NAME}"
+  echo 'To stop the VM:'
+  echo "\tdocker-machine stop ${NAME}"
+  echo 'IMPORTANT, after you start the VM run this command, otherwise docker will not find the VM and containers'
+  echo "\teval \"$(docker-machine env ${NAME})\""
+fi
+echo 'To start the Container:'
+echo "\tdocker start ${NAME}"
+echo 'To stop the Container:'
+echo "\tdocker stop ${NAME}"
 echo "To connect: ssh -i ${SSH_PRVT_FILE} dev@${IP} -p ${SSH_HOST_PORT}"
