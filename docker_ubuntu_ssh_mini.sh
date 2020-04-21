@@ -216,13 +216,13 @@ ${IMAGE}
 rm -fr ${TMP_DIR}
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  echo 'Mac require the user of docker-machine to start and stop the VM hosting the containers.'
+  echo 'MAC require the user of docker-machine to start and stop the VM hosting the containers.'
   echo 'To start the VM:'
   echo "	docker-machine start ${NAME}"
   echo 'To stop the VM:'
   echo "	docker-machine stop ${NAME}"
   echo 'IMPORTANT, after you start the VM run this command, otherwise docker will not find the VM and containers'
-  echo "	eval \"$(docker-machine env ${NAME})\""
+  echo "	eval \"\$(docker-machine env ${NAME})\""
 fi
 echo 'To start the Container:'
 echo "	docker start ${NAME}"
