@@ -172,7 +172,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew cask install virtualbox || true
   brew install docker docker-machine || true
 
-  MAC_VM=${NAME}
+  MAC_VM=default
   echo "If the VM ${MAC_VM} already exists, remove it"
   docker-machine kill ${MAC_VM} || true
   docker-machine rm ${MAC_VM} || true
