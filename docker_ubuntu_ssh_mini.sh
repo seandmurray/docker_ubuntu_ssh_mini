@@ -4,7 +4,6 @@ CONTAINER_EXT_INSTALL=''
 CONTAINER_EXT_OPS=''
 CONTAINER_IP='172.17.0.1'
 CONTAINER_TZ='America/Chicago'
-DOCKER_MACHINE_EXT_OPS=''
 LOGIN='dev'
 NAME=${LOGIN}
 PASSWD='pcfzmbuh'
@@ -23,7 +22,6 @@ function help {
   echo "--container_ip <IP> is the IP we try and assign to the container, default ${CONTAINER_IP}"
   echo "--container_login <login> is the login name of the system admin user, default ${LOGIN}"
   echo "--container_tz <tz> is the container time zone, default ${CONTAINER_TZ}"
-  echo '--docker_machine_ext_ops <string> extra args to pass the VM bulid (MAC ONLY)'
   echo "--name <name> is prefix name applied to the: image, container and vm(mac only), default ${NAME}"
   echo "--passwd <passwd> the backup password that will be used, default ${DEFAUL_PASSWD}"
   echo "--ssh_host_port <port> the port on the host machine to map to the containers SSH port, default ${SSH_HOST_PORT}"
@@ -54,9 +52,6 @@ while true; do
     ;;
     --container_tz)
       CONTAINER_TZ=$val
-    ;;
-    --docker_machin_ops)
-      DOCKER_MACHINE_EXT_OPS=$val
     ;;
     --name)
       NAME=$val
@@ -184,7 +179,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   docker-machine rm ${NAME} || true
 
   echo "Build the VM ${NAME}, if needed"
-  docker-machine create --driver virtualbox ${DOCKER_MACHINE_EXT_OPS} ${NAME} || true
+  docker-machine create --driver virtualbox ${NAME} || true
 
   echo "Start the VM ${NAME}, if not already started"
   docker-machine start ${NAME} || true
