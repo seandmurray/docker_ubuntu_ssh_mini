@@ -7,9 +7,9 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 ## Parameters
 
-`--container_ext_install <apt_package_name>` the extra apt packages to install, format 'pkg1 pkg2'.
+`--container_ext_install <apt_package_name>` the extra apt packages to install
 
-`--container_ext_ops <string>` extra args to pass in like "--dns 8.8.8.8 --dns x.x.x.x".
+`--container_ext_ops <string>` extra args to pass to the container build
 
 `--container_ip <IP>` is the IP we try and assign to the container, default `172.17.0.1`
 
@@ -17,9 +17,11 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 `--container_tz <tz>` is the container time zone, default `America/Chicago`
 
+`--docker_machine_ext_ops <string>` extra args to pass to VM build (MAC ONLY)
+
 `--name <name>` is name used for: image, container and vm (Mac only), default `dev`
 
-`--passwd <passwd>` the backup password that will be used, default `pcfzmbuh`. Login via SSH by password is turned off by default.
+`--passwd <passwd>` the backup password that will be used, default `pcfzmbuh`. Login via SSH by password is turned off by default. Change it.
 
 `--ssh_host_port <port>` the port on the host machine to map to the containers SSH port, default `2223`
 

@@ -23,8 +23,7 @@ function help {
   echo "--container_ip <IP> is the IP we try and assign to the container, default ${CONTAINER_IP}"
   echo "--container_login <login> is the login name of the system admin user, default ${LOGIN}"
   echo "--container_tz <tz> is the container time zone, default ${CONTAINER_TZ}"
-  echo '--docker_machine_ext_ops <string> extra args to pass the VM bulid (MAC ONLY), Example:'
-  echo "	--docker_machine_ext_ops '--virtualbox-hostonly-cidr \"10.15.1.24/32\"', If you do not know what your doing, do not use this"
+  echo '--docker_machine_ext_ops <string> extra args to pass the VM bulid (MAC ONLY)'
   echo "--name <name> is prefix name applied to the: image, container and vm(mac only), default ${NAME}"
   echo "--passwd <passwd> the backup password that will be used, default ${DEFAUL_PASSWD}"
   echo "--ssh_host_port <port> the port on the host machine to map to the containers SSH port, default ${SSH_HOST_PORT}"
