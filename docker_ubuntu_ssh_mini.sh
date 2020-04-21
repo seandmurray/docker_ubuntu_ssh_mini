@@ -215,6 +215,8 @@ ${IMAGE}
 # Clean up the generated temp files.
 rm -fr ${TMP_DIR}
 
+echo ''
+echo '################################################################################'
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo 'Use docker-machine to start and stop the VM hosting the containers.'
   echo 'To start the VM:'
@@ -223,10 +225,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "	docker-machine stop ${NAME}"
   echo 'IMPORTANT, after you start the VM run this command, otherwise docker will not find the VM and containers'
   echo "	eval \"\$(docker-machine env ${NAME})\""
+  echo ''
 fi
 echo 'To start the Container:'
 echo "	docker start ${NAME}"
 echo 'To stop the Container:'
 echo "	docker stop ${NAME}"
+echo ''
 echo 'The Container is already started. To connect:'
 echo "	ssh -i ${SSH_PRVT_FILE} dev@${IP} -p ${SSH_HOST_PORT}"
