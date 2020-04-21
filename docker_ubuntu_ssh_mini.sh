@@ -216,7 +216,7 @@ ${IMAGE}
 rm -fr ${TMP_DIR}
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  echo 'MAC require the user of docker-machine to start and stop the VM hosting the containers.'
+  echo 'Use docker-machine to start and stop the VM hosting the containers.'
   echo 'To start the VM:'
   echo "	docker-machine start ${NAME}"
   echo 'To stop the VM:'
@@ -228,4 +228,5 @@ echo 'To start the Container:'
 echo "	docker start ${NAME}"
 echo 'To stop the Container:'
 echo "	docker stop ${NAME}"
-echo "To connect: ssh -i ${SSH_PRVT_FILE} dev@${IP} -p ${SSH_HOST_PORT}"
+echo 'The Container is already started. To connect:'
+echo "	ssh -i ${SSH_PRVT_FILE} dev@${IP} -p ${SSH_HOST_PORT}"

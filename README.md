@@ -27,24 +27,35 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 `--ssh_publ_file <file>` the file name that contains the SSH public key, default `~/.ssh/id_rsa.pub`
 
+## Starting/Stopping/Connecting
+
+To start the Container: `docker start <name>`
+To stop the Container: `docker stop <name>`
+To connect: `ssh -i <ssh_prvt_file> <login>@<container_ip> -p <ssh_host_port>`
+
 ## X11 over SSH
 
-The simplest way to display X11 apps on the host machine window,
-is to install firefox (or some other X11 app) in the container with
-apt-get. Example:
+The simplest way to display X11 apps on the host machine window, is to
+install firefox (or some other X11 app, I chose firefox as it will include
+a jdk and libraries for java apps) in the container with apt-get. Example:
 `sudo apt-get -y install firefox`
-Note, I chose firefox because it installs all the dependencies for eclipse, including SWT and open jdk 11.
 
 Then connect to the container with the -Y or the -X flag. Example:
-`ssh -Y -i /ssh/private.file <admin_name>@container_ip -p container_port`
+`ssh -Y -i <ssh_prvt_file> <login>@<container_ip> -p <ssh_host_port>`
 
-## Mac
+## Mac only
 
 To run just a command line version on a MAC requires *homebrew* https://brew.sh/
 Homebrew will install the following (if not already installed):
   * VirtualBox https://www.virtualbox.org/
   * docker-machine https://github.com/docker/machine
   * docker https://www.docker.com/
+
+Use docker-machine to start and stop the VM hosting the containers.
+To start the VM: `docker-machine start <name>`
+To stop the VM: `docker-machine stop <name>`
+*IMPORTANT* after you start the VM run this command, otherwise docker will not find the VM and containers.
+`eval $(docker-machine env ${NAME})`
 
 If you want use X11 apps from inside the container to display on MAC you will also need:
   * XCode (install from the Apple store)
