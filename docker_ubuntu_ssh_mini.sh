@@ -16,14 +16,15 @@ UBUNTU_VERSION='20.04'
 function help {
   echo 'Script to build a containtly running Ubuntu container with a SSH daemon running and an Admin user.'
   echo 'Use it as a development enviroment or a test environment.'
-  echo "--container_ext_install <apt_package_name> the extra apt packages to install, format 'pkg1 pkg2'.
-  echo "--container_ext_ops <string> extra args to pass to the container build, Example:"
-  echo "	'--dns 8.8.8.8 --dns x.x.x.x', If you don't know what your doing, don't use this"
+  echo '--container_ext_install <apt_package_name> the extra apt packages to install, Example'
+  echo '	--container_ext_install "firefox git htop jq maven zip"'
+  echo '--container_ext_ops <string> extra args to pass to the container build, Example:'
+  echo "	--container_ext_ops '--dns 8.8.8.8 --dns x.x.x.x', If you do not know what your doing, do not use this"
   echo "--container_ip <IP> is the IP we try and assign to the container, default ${CONTAINER_IP}"
   echo "--container_login <login> is the login name of the system admin user, default ${LOGIN}"
   echo "--container_tz <tz> is the container time zone, default ${CONTAINER_TZ}"
-  echo "--docker_machine_ext_ops <string> extra args to pass the VM bulid (MAC ONLY)"
-  echo "	--virtualbox-hostonly-cidr '10.15.1.24/32', If you don't know what your doing, don't use this"
+  echo '--docker_machine_ext_ops <string> extra args to pass the VM bulid (MAC ONLY), Example:'
+  echo "	--docker_machine_ext_ops '--virtualbox-hostonly-cidr \"10.15.1.24/32\"', If you do not know what your doing, do not use this"
   echo "--name <name> is prefix name applied to the: image, container and vm(mac only), default ${NAME}"
   echo "--passwd <passwd> the backup password that will be used, default ${DEFAUL_PASSWD}"
   echo "--ssh_host_port <port> the port on the host machine to map to the containers SSH port, default ${SSH_HOST_PORT}"
