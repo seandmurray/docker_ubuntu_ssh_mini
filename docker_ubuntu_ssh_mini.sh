@@ -218,14 +218,14 @@ rm -fr ${TMP_DIR}
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo 'Mac require the user of docker-machine to start and stop the VM hosting the containers.'
   echo 'To start the VM:'
-  echo "\tdocker-machine start ${NAME}"
+  echo "	docker-machine start ${NAME}"
   echo 'To stop the VM:'
-  echo "\tdocker-machine stop ${NAME}"
+  echo "	docker-machine stop ${NAME}"
   echo 'IMPORTANT, after you start the VM run this command, otherwise docker will not find the VM and containers'
-  echo "\teval \"$(docker-machine env ${NAME})\""
+  echo "	eval \"$(docker-machine env ${NAME})\""
 fi
 echo 'To start the Container:'
-echo "\tdocker start ${NAME}"
+echo "	docker start ${NAME}"
 echo 'To stop the Container:'
-echo "\tdocker stop ${NAME}"
+echo "	docker stop ${NAME}"
 echo "To connect: ssh -i ${SSH_PRVT_FILE} dev@${IP} -p ${SSH_HOST_PORT}"
