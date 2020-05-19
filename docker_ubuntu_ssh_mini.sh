@@ -10,7 +10,7 @@ PASSWD='pcfzmbuh'
 SSH_HOST_PORT=2223
 SSH_PRVT_FILE="${HOME}/.ssh/id_rsa"
 SSH_PUBL_FILE="${SSH_PRVT_FILE}.pub"
-UBUNTU_VERSION='20.04'
+VERSION_LINUX_BASE='ubuntu:20.04'
 
 function help {
   echo 'Script to build a containtly running Ubuntu container with a SSH daemon running and an Admin user.'
@@ -27,6 +27,7 @@ function help {
   echo "--ssh_host_port <port> the port on the host machine to map to the containers SSH port, default ${SSH_HOST_PORT}"
   echo "--ssh_prvt_file <file> the file name that contains the SSH private key, default ${SSH_PRVT_FILE}"
   echo "--ssh_publ_file <file> the file name that contains the SSH public key, default ${SSH_PUBL_FILE}"
+  echo "--version-linux ubuntu:XX.YY the version of linus to use as the base, default ${VERSION_LINUX_BASE}, I hope you know what you are doing?"
   exit 0
 }
 
@@ -67,6 +68,9 @@ while true; do
     ;;
     --ssh_publ_file)
       SSH_PUBL_FILE=$val
+    ;;
+    --version-linux)
+      VERSION_LINUX_BASE=$val
     ;;
     *)
       break
@@ -113,7 +117,7 @@ read
 ###########
 # The data that will be written into a temp Dockerfile
 DOCKER_TMPL=$(cat <<-EOF
-FROM ubuntu:${UBUNTU_VERSION}
+FROM ${VERSION_LINUX_BASE}
 
 # Set up the time zone to avoid answering awkward interactive questions.
 ENV TZ='${CONTAINER_TZ}'
