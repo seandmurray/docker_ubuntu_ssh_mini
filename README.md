@@ -29,6 +29,8 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 `--ssh_publ_file <file>` the file name that contains the SSH public key, default `~/.ssh/id_rsa.pub`
 
+`--version-linux ubuntu:XX.YY` the version of linux to use as the base, default ${VERSION_LINUX_BASE}, I hope you know what you are doing?
+
 ## Starting/Stopping/Connecting
 
 To start the Container: `docker start <name>`

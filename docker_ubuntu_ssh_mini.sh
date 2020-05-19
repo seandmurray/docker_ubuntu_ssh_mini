@@ -27,7 +27,7 @@ function help {
   echo "--ssh_host_port <port> the port on the host machine to map to the containers SSH port, default ${SSH_HOST_PORT}"
   echo "--ssh_prvt_file <file> the file name that contains the SSH private key, default ${SSH_PRVT_FILE}"
   echo "--ssh_publ_file <file> the file name that contains the SSH public key, default ${SSH_PUBL_FILE}"
-  echo "--version-linux ubuntu:XX.YY the version of linus to use as the base, default ${VERSION_LINUX_BASE}, I hope you know what you are doing?"
+  echo "--version-linux ubuntu:XX.YY the version of linux to use as the base, default ${VERSION_LINUX_BASE}, I hope you know what you are doing?"
   exit 0
 }
 
