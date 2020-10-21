@@ -2,7 +2,6 @@
 
 CONTAINER_EXT_INSTALL=''
 CONTAINER_EXT_OPS=''
-CONTAINER_IP='172.17.0.1'
 CONTAINER_TZ='America/Chicago'
 LOGIN='dev'
 NAME=${LOGIN}
@@ -19,7 +18,6 @@ function help {
   echo '	--container_ext_install "firefox git htop jq maven zip"'
   echo '--container_ext_ops <string> extra args to pass to the container build, Example:'
   echo "	--container_ext_ops '--dns 8.8.8.8 --dns x.x.x.x', If you do not know what your doing, do not use this"
-  echo "--container_ip <IP> is the IP we try and assign to the container, default ${CONTAINER_IP}"
   echo "--container_login <login> is the login name of the system admin user, default ${LOGIN}"
   echo "--container_tz <tz> is the container time zone, default ${CONTAINER_TZ}"
   echo "--name <name> is prefix name applied to the: image, container and vm(mac only), default ${NAME}"
@@ -44,9 +42,6 @@ while true; do
     ;;
     --container_ext_ops)
       CONTAINER_EXT_OPS=$val
-    ;;
-    --container_ip)
-      CONTAINER_IP=$val
     ;;
     --container_login)
       LOGIN=$val
@@ -95,7 +90,6 @@ if [ ! -e "${SSH_PUBL_FILE}" ] ; then
 fi
 
 # Interal values
-IP=${CONTAINER_IP}
 IMAGE=${NAME}
 CONTAINER=${NAME}
 AUTH_KEY=`cat ${SSH_PUBL_FILE}`
@@ -107,7 +101,6 @@ echo "Image name: ${IMAGE}"
 echo "Container login: ${LOGIN}"
 echo "Container name: ${CONTAINER}"
 echo "Container extra operations : ${CONTAINER_EXT_OPS}"
-echo "Container IP: ${CONTAINER_IP}"
 echo "Container Time Zone: ${CONTAINER_TZ}"
 echo "Host SSH port: ${SSH_HOST_PORT}"
 echo "Using SSH private key file: ${SSH_PVT_KEY_FILE}"
@@ -211,7 +204,6 @@ docker build -t ${IMAGE} ./
 
 echo "Build container ${CONTAINER} from image ${IMAGE}"
 docker run -d -p${SSH_HOST_PORT}:22 \
---ip ${CONTAINER_IP} \
 --hostname ${CONTAINER} \
 --name ${CONTAINER} \
 -e DISPLAY=$DISPLAY \
@@ -239,4 +231,4 @@ echo 'To stop the Container:'
 echo "	docker stop ${NAME}"
 echo ''
 echo 'The Container is already started. To connect:'
-echo "	ssh -i ${SSH_PRVT_FILE} dev@${IP} -p ${SSH_HOST_PORT}"
+echo "	ssh -i ${SSH_PRVT_FILE} ${LOGIN}@localhost -p ${SSH_HOST_PORT}"
