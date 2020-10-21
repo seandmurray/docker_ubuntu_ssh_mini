@@ -11,8 +11,6 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 `--container_ext_ops <string>` extra args to pass to the container build
 
-`--container_ip <IP>` is the IP we try and assign to the container, default `172.17.0.1`
-
 `--container_login <login>` is the login name of the system admin user, default `dev`
 
 `--container_tz <tz>` is the container time zone, default `America/Chicago`
@@ -35,7 +33,7 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 To start the Container: `docker start <name>`
 To stop the Container: `docker stop <name>`
-To connect: `ssh -i <ssh_prvt_file> <login>@<container_ip> -p <ssh_host_port>`
+To connect: `ssh -i <ssh_prvt_file> <login>@localhost -p <ssh_host_port>`
 
 ## X11 over SSH
 
@@ -45,7 +43,7 @@ a jdk and libraries for java apps) in the container with apt-get. Example:
 `sudo apt-get -y install firefox`
 
 Then connect to the container with the -Y or the -X flag. Example:
-`ssh -Y -i <ssh_prvt_file> <login>@<container_ip> -p <ssh_host_port>`
+`ssh -Y -i <ssh_prvt_file> <login>@localhost -p <ssh_host_port>`
 
 ## Mac only
 
