@@ -17,11 +17,11 @@ function help {
   echo '--container_ext_install <apt_package_name> the extra apt packages to install, Example'
   echo '	--container_ext_install "firefox git htop jq maven zip"'
   echo '--container_ext_ops <string> extra args to pass to the container build, Example:'
-  echo "	--container_ext_ops '-p 8080:80' map host port 8080 to container port 80"
   echo "	--container_ext_ops '--dns 8.8.8.8 --dns x.x.x.x', If you do not know what your doing, do not use this"
+  echo "	--container_ext_ops '-p 8080:80' map host port 8080 to container port 80"
   echo "--container_login <login> is the login name of the system admin user, default ${LOGIN}"
   echo "--container_tz <tz> is the container time zone, default ${CONTAINER_TZ}"
-  echo "--name <name> is prefix name applied to the: image, container. Default ${NAME}"
+  echo "--name <name> is prefix name applied to the: image, container and vm(mac only), default ${NAME}"
   echo "--passwd <passwd> the backup password that will be used, default ${DEFAUL_PASSWD}"
   echo "--ssh_host_port <port> the port on the host machine to map to the containers SSH port, default ${SSH_HOST_PORT}"
   echo "--ssh_prvt_file <file> the file name that contains the SSH private key, default ${SSH_PRVT_FILE}"
@@ -154,6 +154,43 @@ cd ${TMP_DIR}
 echo "${DOCKER_TMPL}" > Dockerfile
 echo "Creating the Dockerfile: ${TMP_DIR}/Dockerfile"
 
+###########
+# The mac requires a linux virtual box.
+# So will try and install requirements
+# For X11 you will need XCode installed from app store
+# and "brew cask install xquartz"
+###########
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo 'This is a MAC checking if brew installed and rebuilding docker-machine'
+  if ! [ -x "$(command -v brew)" ]; then
+    echo 'ERROR: brew is required to build on MAC'
+    exit 1
+  fi
+
+  echo 'Install the required apps'
+  set +e
+  brew cask install virtualbox || true
+  brew install docker docker-machine || true
+
+  echo "If the VM ${NAME} already exists, remove it"
+  docker-machine kill ${NAME} || true
+  docker-machine rm ${NAME} || true
+
+  echo "Build the VM ${NAME}, if needed"
+  docker-machine create --driver virtualbox ${NAME} || true
+
+  echo "Start the VM ${NAME}, if not already started"
+  docker-machine start ${NAME} || true
+  set -e
+
+	# Get the docker machine environmentals
+  eval "$(docker-machine env ${NAME})"
+	# The docker machine has it's own IP
+  IP=$(echo $DOCKER_HOST|grep -E -o '([0-9]{1,3}[\.]){3}[0-9]{1,3}')
+fi
+echo "IP is ${IP}"
+###########
+
 echo "Stop the container ${CONTAINER}, if started"
 set +e
 docker stop ${CONTAINER} || true
@@ -178,6 +215,17 @@ ${IMAGE}
 rm -fr ${TMP_DIR}
 
 echo ''
+echo '################################################################################'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo 'Use docker-machine to start and stop the VM hosting the containers.'
+  echo 'To start the VM:'
+  echo "	docker-machine start ${NAME}"
+  echo 'To stop the VM:'
+  echo "	docker-machine stop ${NAME}"
+  echo 'IMPORTANT, after you start the VM run this command, otherwise docker will not find the VM and containers'
+  echo "	eval \"\$(docker-machine env ${NAME})\""
+  echo ''
+fi
 echo 'To start the Container:'
 echo "	docker start ${NAME}"
 echo 'To stop the Container:'
