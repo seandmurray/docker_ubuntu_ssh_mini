@@ -9,7 +9,7 @@ docker_ubuntu_ssh_mini.sh --ssh_prvt_file ~/.ssh/work.pvt --ssh_publ_file ~/.ssh
 
 `--container_ext_install <apt_package_name>` the extra apt packages to install
 
-`--container_ext_ops <string>` extra args to pass to the container run
+`--container_ext_ops <string>` extra args to pass to the container run, example: "-p 8080:80" will map host port 8080 to container port 80.
 
 `--container_login <login>` is the login name of the system admin user, default `dev`
 
