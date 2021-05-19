@@ -5,14 +5,14 @@ CONTAINER_EXT_OPS=''
 CONTAINER_TZ='America/Chicago'
 LOGIN='dev'
 NAME=${LOGIN}
-PASSWD='pcfzmbuh'
+PASSWD=`cat /dev/urandom | tr -dc 'a-z' | fold -w 8 | head -n 1`
 SSH_HOST_PORT=2223
 SSH_PRVT_FILE="${HOME}/.ssh/id_rsa"
 SSH_PUBL_FILE="${SSH_PRVT_FILE}.pub"
 VERSION_LINUX_BASE='ubuntu:20.04'
 
 function help {
-  echo 'Script to build a containtly running Ubuntu container with a SSH daemon running and an Admin user.'
+  echo 'Script to build an Ubuntu container with a SSH daemon running and an Admin user.'
   echo 'Use it as a development enviroment or a test environment.'
   echo '--container_ext_install <apt_package_name> the extra apt packages to install, Example'
   echo '	--container_ext_install "firefox git htop jq maven zip"'
@@ -21,8 +21,8 @@ function help {
   echo "	--container_ext_ops '--dns 8.8.8.8 --dns x.x.x.x', If you do not know what your doing, do not use this"
   echo "--container_login <login> is the login name of the system admin user, default ${LOGIN}"
   echo "--container_tz <tz> is the container time zone, default ${CONTAINER_TZ}"
-  echo "--name <name> is prefix name applied to the: image, container. Default ${NAME}"
-  echo "--passwd <passwd> the backup password that will be used, default ${DEFAUL_PASSWD}"
+  echo "--name <name> is prefix name applied to the: image, container. Default ${LOGIN}"
+  echo "--passwd <passwd> the backup password that will be used. Otherwise will generate random password of form: ${PASSWD}"
   echo "--ssh_host_port <port> the port on the host machine to map to the containers SSH port, default ${SSH_HOST_PORT}"
   echo "--ssh_prvt_file <file> the file name that contains the SSH private key, default ${SSH_PRVT_FILE}"
   echo "--ssh_publ_file <file> the file name that contains the SSH public key, default ${SSH_PUBL_FILE}"
